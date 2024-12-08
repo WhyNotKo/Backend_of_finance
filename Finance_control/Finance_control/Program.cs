@@ -1,7 +1,10 @@
-using Finance_control.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Finance_control.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Finance_controlContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Finance_controlContext") ?? throw new InvalidOperationException("Connection string 'Finance_controlContext' not found.")));
 
 // Add services to the container.
 
@@ -26,6 +29,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
