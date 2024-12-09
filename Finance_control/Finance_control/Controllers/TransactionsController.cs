@@ -32,7 +32,7 @@ namespace Finance_control.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            var transaction = await _context.Transaction.FindAsync(id);
+            var transaction = await _context.Transaction.FirstOrDefaultAsync(t => t.Id == id);
 
             if (transaction == null)
             {

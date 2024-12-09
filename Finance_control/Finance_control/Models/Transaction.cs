@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public required DateTime Date { get; set; }
         public required string Type { get; set; } // "Income" или "Expense"
-        public required int Amount { get; set; }
+        public required float Amount { get; set; }
         public string? Category { get; set; }
 
         public bool IsIncome() => Type.Equals("Income", StringComparison.OrdinalIgnoreCase);
