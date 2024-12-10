@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Finance_control.Data;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Client;
 
 namespace Finance_control
 {

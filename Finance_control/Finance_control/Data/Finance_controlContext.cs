@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Finance_control.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Finance_control.Data
 {
