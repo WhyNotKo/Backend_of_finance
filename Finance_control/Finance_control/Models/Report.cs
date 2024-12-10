@@ -3,9 +3,9 @@
     public class Report
     {
         public DateTime Period { get; set; }
-        public decimal TotalIncome { get; set; }
-        public decimal TotalExpense { get; set; }
+        public float TotalIncome { get; set; }
+        public float TotalExpense { get; set; }
 
-        public decimal NetBalance() => TotalIncome - TotalExpense;
+        public float NetBalance() => TotalIncome - TotalExpense;
     }
 }
