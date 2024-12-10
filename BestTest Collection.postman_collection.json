@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "37890c2e-a8be-4c6b-8243-d435d34f26af",
+		"name": "BestTest Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40328089"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"login\": \"user\",\r\n  \"password\": \"ee11cbb19052e40b07aac0ca060c23ee\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5205/api/Auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Take all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/api/Transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Imd1ZXN0IiwibmJmIjoxNzMzODI3Mzg5LCJleHAiOjE3NjUzNjMzODksImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.S6aC6EDLRDaAmZi-h-T2kIQ8bk0X8dT4vB812fivYKc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"date\": \"2024-11-10T10:39:13.786Z\",\r\n  \"type\": \"Income\",\r\n  \"amount\": 300,\r\n  \"category\": \"Try\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5205/api/Transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Secret token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/api/Auth/token/secret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Auth",
+						"token",
+						"secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzMzODI3OTMyLCJleHAiOjE3NjUzNjM5MzIsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.5H_ZAN4BUwNDMAgTIQxAxoXftla2iskXs0ZhR9wGT2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 5,\r\n  \"date\": \"2024-10-10T10:54:17.454Z\",\r\n  \"type\": \"Income\",\r\n  \"amount\": 5,\r\n  \"category\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5205/api/Transactions/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Transactions",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Take Income and Expense for period",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzMzODI3OTMyLCJleHAiOjE3NjUzNjM5MzIsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.5H_ZAN4BUwNDMAgTIQxAxoXftla2iskXs0ZhR9wGT2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/api/Reports?startDate=2024-12-09&endDate=2024-12-11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Reports"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2024-12-09"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-12-11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzMzODI3OTMyLCJleHAiOjE3NjUzNjM5MzIsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.5H_ZAN4BUwNDMAgTIQxAxoXftla2iskXs0ZhR9wGT2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/api/Reports/net-balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Reports",
+						"net-balance"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
