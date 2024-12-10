@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Finance_control.Data;
 using Finance_control.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Finance_control.Controllers
 {
@@ -45,6 +46,7 @@ namespace Finance_control.Controllers
         // PUT: api/Transactions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutTransaction(int id, Transaction transaction)
         {
             if (id != transaction.Id)
@@ -76,6 +78,7 @@ namespace Finance_control.Controllers
         // POST: api/Transactions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
         {
             _context.Transaction.Add(transaction);
@@ -86,6 +89,7 @@ namespace Finance_control.Controllers
 
         // DELETE: api/Transactions/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
             var transaction = await _context.Transaction.FindAsync(id);

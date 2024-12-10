@@ -7,78 +7,42 @@ using System.Text;
 using Finance_control.Data;
 using Finance_control.Models;
 
-[Route("api/[controller]")]
-[ApiController]
-public class AuthController : ControllerBase
+namespace Finance_control.Controllers
 {
-    private readonly Finance_controlContext _context;
-    private readonly IConfiguration _configuration;
-    private readonly PasswordHasher<User> _passwordHasher;
-
-    public AuthController(Finance_controlContext context, IConfiguration configuration)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        _context = context;
-        _configuration = configuration;
-        _passwordHasher = new PasswordHasher<User>();
-    }
-
-    // POST: api/Auth/Register
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-    {
-        if (await _context.User.AnyAsync(u => u.Username == registerDto.Username))
+        public struct LoginData
         {
-            return BadRequest("Username already exists.");
+            public string login { get; set; }
+            public string password { get; set; }
         }
-
-        var user = new User
+        [HttpPost]
+        public object GetToken([FromBody] LoginData ld)
         {
-            Username = registerDto.Username,
-            Role = registerDto.Role
-        };
-
-        user.PasswordHash = _passwordHasher.HashPassword(user, registerDto.Password);
-
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
-        return Ok(new { Message = "Registration successful" });
-    }
-
-    // POST: api/Auth/Login
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
-        if (user == null ||
-            _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password) != PasswordVerificationResult.Success)
-        {
-            return Unauthorized("Invalid username or password.");
+            var user = SharedData.Users.FirstOrDefault(u => u.Login == ld.login && u.Password == ld.password);
+            if (user == null)
+            {
+                Response.StatusCode = 401;
+                return new { message = "wrong login/password" };
+            }
+            return AuthOptions.GenerateToken(user.IsAdmin);
         }
-
-        var token = GenerateJwtToken(user);
-        return Ok(new { Token = token });
-    }
-
-    private string GenerateJwtToken(User user)
-    {
-        var claims = new List<Claim>
+        [HttpGet("users")]
+        public List<User> GetUsers()
         {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Role, user.Role)
-        };
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            _configuration["Jwt:Issuer"],
-            _configuration["Jwt:Audience"],
-            claims,
-            expires: DateTime.Now.AddHours(1),
-            signingCredentials: creds
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+            return SharedData.Users;
+        }
+        [HttpGet("token")]
+        public object GetToken()
+        {
+            return AuthOptions.GenerateToken();
+        }
+        [HttpGet("token/secret")]
+        public object GetAdminToken()
+        {
+            return AuthOptions.GenerateToken(true);
+        }
     }
 }
