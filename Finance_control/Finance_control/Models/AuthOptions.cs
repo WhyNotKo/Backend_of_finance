@@ -7,7 +7,7 @@ namespace Finance_control
 {
     internal class AuthOptions
     {
-        public static string Issuer => "TM";
+        public static string Issuer => "AL";
         public static string Audience => "APIclients";
         public static int LifetimeInYears => 1;
         public static SecurityKey SigningKey => new SymmetricSecurityKey(Encoding.ASCII.GetBytes("superSecretKeyMustBeLoooooongEnough"));

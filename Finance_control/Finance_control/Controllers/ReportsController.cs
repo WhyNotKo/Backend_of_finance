@@ -38,11 +38,11 @@ public class ReportsController : ControllerBase
 
         // Выполняем расчет
         var totalIncome = await query
-            .Where(t => t.IsIncome())
+            .Where(t => t.IsIncome() == true)
             .SumAsync(t => t.Amount);
 
         var totalExpense = await query
-            .Where(t => t.IsExpense() )
+            .Where(t => t.IsExpense() == true)
             .SumAsync(t => t.Amount);
 
         var report = new Report
@@ -65,11 +65,11 @@ public class ReportsController : ControllerBase
 
         // Подсчитываем доходы и расходы
         var totalIncome = await query
-            .Where(t => t.Type == "Income")
+            .Where(t => t.IsIncome() == true)
             .SumAsync(t => t.Amount);
 
         var totalExpense = await query
-            .Where(t => t.Type == "Expense")
+            .Where(t => t.IsExpense() == true)
             .SumAsync(t => t.Amount);
 
         var report = new Report
