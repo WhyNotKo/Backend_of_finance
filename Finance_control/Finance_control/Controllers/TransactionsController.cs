@@ -10,32 +10,32 @@ namespace Finance_control.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
-        private readonly Finance_controlContext _context;
+        private readonly Manager _manager;
 
-        public TransactionsController(Finance_controlContext context)
+        public TransactionsController(Manager manager)
         {
-            _context = context;
+            _manager = manager;
         }
 
         // GET: api/Transactions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetTransaction()
         {
-            return await _context.Transaction.ToListAsync();
+            return Ok(await _manager.GetAllTransactionsAsync());
         }
 
         // GET: api/Transactions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            var transaction = await _context.Transaction.FirstOrDefaultAsync(t => t.Id == id);
+            var transaction = await _manager.GetTransactionByIdAsync(id);
 
             if (transaction == null)
             {
                 return NotFound();
             }
 
-            return transaction;
+            return Ok(transaction);
         }
 
         // PUT: api/Transactions/5
@@ -49,15 +49,13 @@ namespace Finance_control.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(transaction).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _manager.UpdateTransactionAsync(transaction);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TransactionExists(id))
+                if (!(await _manager.GetTransactionByIdAsync(id) is not null))
                 {
                     return NotFound();
                 }
@@ -76,8 +74,7 @@ namespace Finance_control.Controllers
         [Authorize]
         public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
         {
-            _context.Transaction.Add(transaction);
-            await _context.SaveChangesAsync();
+            await _manager.AddTransactionAsync(transaction);
 
             return CreatedAtAction("GetTransaction", new { id = transaction.Id }, transaction);
         }
@@ -87,21 +84,9 @@ namespace Finance_control.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
-            var transaction = await _context.Transaction.FindAsync(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            _context.Transaction.Remove(transaction);
-            await _context.SaveChangesAsync();
+            await _manager.DeleteTransactionAsync(id);
 
             return NoContent();
-        }
-
-        private bool TransactionExists(int id)
-        {
-            return _context.Transaction.Any(e => e.Id == id);
         }
     }
 }
