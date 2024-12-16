@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "37890c2e-a8be-4c6b-8243-d435d34f26af",
+		"_postman_id": "6f0e1f7b-0569-4faa-9335-c1b13e0b0c61",
 		"name": "BestTest Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "40328089"
@@ -72,7 +72,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": 0,\r\n  \"date\": \"2024-11-10T10:39:13.786Z\",\r\n  \"type\": \"Income\",\r\n  \"amount\": 300,\r\n  \"category\": \"Try\"\r\n}",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"date\": \"2024-12-03T10:39:13.786Z\",\r\n  \"type\": \"Expense\",\r\n  \"amount\": 1200,\r\n  \"category\": \"Квартира в Москве\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -172,7 +172,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5205/api/Reports?startDate=2024-12-09&endDate=2024-12-11",
+					"raw": "http://localhost:5205/api/Reports?startDate=2024-11-09&endDate=2024-12-10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -185,11 +185,11 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2024-12-09"
+							"value": "2024-11-09"
 						},
 						{
 							"key": "endDate",
-							"value": "2024-12-11"
+							"value": "2024-12-10"
 						}
 					]
 				}
@@ -222,6 +222,55 @@
 						"api",
 						"Reports",
 						"net-balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get per dates",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzM0MzQ0OTQyLCJleHAiOjE3NjU4ODA5NDIsImlzcyI6IkFMIiwiYXVkIjoiQVBJY2xpZW50cyJ9.jCfRJ2lvfnYOC4jZ6Em2KyHTa5yVzeROKpCMr_a9QcI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5205/api/Transactions/GetPerDates?StartDate=2024-11-12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"api",
+						"Transactions",
+						"GetPerDates"
+					],
+					"query": [
+						{
+							"key": "StartDate",
+							"value": "2024-11-12"
+						}
 					]
 				}
 			},

@@ -24,6 +24,13 @@ namespace Finance_control.Controllers
             return Ok(await _manager.GetAllTransactionsAsync());
         }
 
+        [HttpGet("GetPerDates")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactionPerDate([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
+        {
+            return Ok(await _manager.GetTransactionsAsyncPerDate(startDate,endDate));
+        }
+
         // GET: api/Transactions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
