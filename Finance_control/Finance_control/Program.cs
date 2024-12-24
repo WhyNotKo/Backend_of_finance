@@ -39,7 +39,12 @@ namespace Finance_control
 
             var app = builder.Build();
 
-
+            app.UseCors(
+                    options => options
+                    .WithOrigins("http://localhost:5173")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
 
             // Configure the HTTP request pipeline.
 
