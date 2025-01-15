@@ -25,7 +25,7 @@ namespace Finance_control.Controllers
         }
 
         [HttpGet("GetPerDates")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactionPerDate([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
         {
             return Ok(await _manager.GetTransactionsAsyncPerDate(startDate,endDate));
@@ -78,7 +78,7 @@ namespace Finance_control.Controllers
         // POST: api/Transactions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
         {
             await _manager.AddTransactionAsync(transaction);
@@ -88,7 +88,7 @@ namespace Finance_control.Controllers
 
         // DELETE: api/Transactions/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
             await _manager.DeleteTransactionAsync(id);

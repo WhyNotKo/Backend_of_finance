@@ -18,7 +18,7 @@ public class ReportsController : ControllerBase
 
     // GET: api/Reports
     [HttpGet]
-    [Authorize(Roles = "admin")]
+    //[Authorize]
     public async Task<ActionResult<Report>> GetReport([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
     {
         var report = await _manager.GenerateReportAsync(startDate, endDate);
@@ -27,7 +27,7 @@ public class ReportsController : ControllerBase
 
     // GET: api/Reports/net-balance
     [HttpGet("net-balance")]
-    [Authorize]
+    //[Authorize]
     public async Task<ActionResult<decimal>> GetNetBalance([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
     {
         var netBalance = await _manager.CalculateNetBalanceAsync(startDate, endDate);
